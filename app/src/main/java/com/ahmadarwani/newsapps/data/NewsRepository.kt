@@ -1,6 +1,5 @@
 package com.ahmadarwani.newsapps.data
 
-import com.ahmadarwani.newsapps.data.network.response.everything.Article
 import com.ahmadarwani.newsapps.data.network.response.everything.Everything
 import com.ahmadarwani.newsapps.data.network.response.topheadlines.TopHeadlines
 import com.ahmadarwani.newsapps.data.network.retrofit.NewsApiService
