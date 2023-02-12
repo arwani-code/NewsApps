@@ -21,70 +21,42 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.ahmadarwani.newsapps.ui.detail.DetailScreen
 import com.ahmadarwani.newsapps.ui.home.HomeScreen
 import com.ahmadarwani.newsapps.ui.navigations.Screen
 import com.ahmadarwani.newsapps.ui.theme.NewsAppsTheme
-import com.ahmadarwani.newsapps.ui.theme.White50
 
 @Composable
 fun JetNewsApp(
-    modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-    Scaffold(topBar = { TopNewsBar() }) { innerPadding ->
-        NavHost(
-            navController = navController,
-            modifier = modifier.padding(innerPadding),
-            startDestination = Screen.Home.route
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Home.route
+    ) {
+        composable(Screen.Home.route) {
+            HomeScreen(navigateToDetail = { title, url ->
+                navController.currentBackStackEntry?.savedStateHandle?.set(key = "title", title)
+                navController.currentBackStackEntry?.savedStateHandle?.set(key = "url", url)
+                navController.navigate(Screen.Detail.route)
+            })
+        }
+        composable(
+            route = Screen.Detail.route
         ) {
-            composable(Screen.Home.route) {
-                HomeScreen()
+            val title = navController.previousBackStackEntry?.savedStateHandle?.get<String>("title")
+            val url = navController.previousBackStackEntry?.savedStateHandle?.get<String>("url")
+            if (title != null && url != null) {
+                DetailScreen(
+                    title = title,
+                    url = url,
+                    navigateHandler = { navController.navigateUp() })
             }
         }
-    }
-}
-
-@Composable
-fun TopNewsBar(
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier.background(Color.White)) {
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .height(55.dp)
-                .padding(start = 20.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Image(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_mandiri),
-                contentDescription = "Icon",
-                modifier = modifier
-                    .size(60.dp)
-                    .padding(end = 16.dp)
-                    .clip(RoundedCornerShape(10.dp)),
-                contentScale = ContentScale.Fit,
-            )
-            Text(
-                text = "Mandiri News",
-                style = MaterialTheme.typography.h5,
-                color = Color.Gray,
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
-            )
-        }
-        Divider(modifier = modifier.padding(top = 8.dp))
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    NewsAppsTheme {
-        TopNewsBar()
     }
 }

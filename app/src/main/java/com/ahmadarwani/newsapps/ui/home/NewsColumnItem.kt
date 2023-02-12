@@ -1,15 +1,12 @@
 package com.ahmadarwani.newsapps.ui.home
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.Composable
@@ -32,12 +29,16 @@ import com.ahmadarwani.newsapps.utils.DateFormatter
 @Composable
 fun NewsColumnItem(
     modifier: Modifier = Modifier,
-    article: Article
+    article: Article,
+    navigateToDetail: (String, String) -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .height(115.dp)
+            .clickable {
+                navigateToDetail(article.title, article.url)
+            }
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current).data(article.urlToImage)
