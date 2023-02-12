@@ -3,6 +3,7 @@ package com.ahmadarwani.newsapps.ui.home
 import android.graphics.Paint.Align
 import android.text.Layout.Alignment
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -37,7 +38,17 @@ fun HomeScreen(
     ) { paddingValues ->
         when (everything) {
             is UiState.Loading -> {
-                BannerLoading()
+                LazyColumn(
+                    modifier = modifier.padding(paddingValues),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                ) {
+                    item {
+                        BannerLoading()
+                    }
+                    items(5) {
+                        NewsColumnLoading()
+                    }
+                }
                 homeViewModel.getEverything()
             }
             is UiState.Success -> {

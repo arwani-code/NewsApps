@@ -7,9 +7,11 @@ import com.ahmadarwani.newsapps.data.network.response.everything.Everything
 import com.ahmadarwani.newsapps.data.network.response.topheadlines.TopHeadlines
 import com.ahmadarwani.newsapps.utils.Constant
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,6 +20,7 @@ sealed class UiState<out T : Any?> {
     data class Success<out T : Any>(val data: T) : UiState<T>()
     data class Error(val errorMessage: String) : UiState<Nothing>()
 }
+
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: NewsRepository) : ViewModel() {

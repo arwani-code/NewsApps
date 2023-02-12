@@ -25,6 +25,7 @@ import coil.request.ImageRequest
 import com.ahmadarwani.newsapps.R
 import com.ahmadarwani.newsapps.data.network.response.everything.Article
 import com.ahmadarwani.newsapps.utils.DateFormatter
+import com.ahmadarwani.newsapps.utils.shimmerEffect
 
 @Composable
 fun NewsColumnItem(
@@ -108,6 +109,52 @@ fun SectionDate(modifier: Modifier = Modifier, publishedAt: String) {
 }
 
 @Composable
-fun NewsColumnLoading(){
-
+fun NewsColumnLoading(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(115.dp)
+    ) {
+        Box(
+            modifier
+                .clip(RoundedCornerShape(16.dp))
+                .size(100.dp)
+                .shimmerEffect()
+        )
+        Column(
+            modifier = modifier
+                .padding(top = 4.dp, start = 8.dp, bottom = 16.dp)
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(
+                modifier
+                    .fillMaxWidth()
+                    .height(20.dp)
+                    .shimmerEffect()
+            )
+            Row(
+                modifier = modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Row(modifier = modifier, verticalAlignment = Alignment.Bottom) {
+                    Box(
+                        modifier = modifier
+                            .width(24.dp)
+                            .height(12.dp)
+                            .padding(end = 4.dp)
+                            .shimmerEffect()
+                    )
+                    Box(
+                        modifier = modifier
+                            .width(24.dp)
+                            .height(12.dp)
+                            .padding(end = 4.dp)
+                            .shimmerEffect()
+                    )
+                }
+            }
+        }
+    }
 }

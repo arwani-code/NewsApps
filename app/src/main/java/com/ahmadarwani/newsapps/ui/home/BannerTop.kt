@@ -71,7 +71,6 @@ fun BannerTop(
 fun BannerLoading(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth()
             .background(color = Color.White)
             .height(350.dp), verticalArrangement = Arrangement.SpaceAround
@@ -100,13 +99,13 @@ fun BannerLoading(modifier: Modifier = Modifier) {
         ) {
             Box(
                 modifier = modifier
-                    .fillMaxWidth(0.7f)
+                    .fillMaxWidth(0.2f)
                     .height(20.dp)
                     .shimmerEffect()
             )
             Box(
                 modifier = modifier
-                    .fillMaxWidth(0.7f)
+                    .fillMaxWidth(0.2f)
                     .height(20.dp)
                     .shimmerEffect()
             )
