@@ -36,7 +36,10 @@ fun HomeScreen(
         }
     ) { paddingValues ->
         when (everything) {
-            is UiState.Loading -> homeViewModel.getEverything()
+            is UiState.Loading -> {
+                BannerLoading()
+                homeViewModel.getEverything()
+            }
             is UiState.Success -> {
                 val articleEverything = (everything as UiState.Success<Everything>).data.articles
                 LazyColumn(
@@ -45,7 +48,10 @@ fun HomeScreen(
                 ) {
                     item {
                         when (topHeadline) {
-                            is UiState.Loading -> homeViewModel.getTopHeadline()
+                            is UiState.Loading -> {
+                                BannerLoading()
+                                homeViewModel.getTopHeadline()
+                            }
                             is UiState.Success -> {
                                 val data =
                                     (topHeadline as UiState.Success<TopHeadlines>).data.articles

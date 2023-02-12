@@ -21,6 +21,7 @@ import coil.request.ImageRequest
 import com.ahmadarwani.newsapps.R
 import com.ahmadarwani.newsapps.data.network.response.topheadlines.Article
 import com.ahmadarwani.newsapps.utils.DateFormatter
+import com.ahmadarwani.newsapps.utils.shimmerEffect
 
 @Composable
 fun BannerTop(
@@ -28,13 +29,13 @@ fun BannerTop(
     article: Article,
     navigateToDetail: (String, String) -> Unit
 ) {
-    val date = DateFormatter.formatDate(article.publishedAt)
     Column(
         modifier = modifier
             .fillMaxWidth()
             .background(color = Color.White)
             .height(350.dp), verticalArrangement = Arrangement.SpaceAround
     ) {
+        val date = DateFormatter.formatDate(article.publishedAt)
         Text(text = "Berita Terkini", color = Color.Gray)
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current).data(article.urlToImage)
@@ -56,9 +57,59 @@ fun BannerTop(
             maxLines = 2,
             fontSize = 16.sp
         )
-        Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(text = article.author, color = Color.Gray.copy(0.9f))
             Text(text = date.toString(), color = Color.Gray.copy(0.9f))
+        }
+    }
+}
+
+@Composable
+fun BannerLoading(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .fillMaxWidth()
+            .background(color = Color.White)
+            .height(350.dp), verticalArrangement = Arrangement.SpaceAround
+    ) {
+        Box(
+            modifier = modifier
+                .fillMaxWidth(0.7f)
+                .height(20.dp)
+                .shimmerEffect()
+        )
+        Box(
+            modifier = modifier
+                .clip(RoundedCornerShape(16.dp))
+                .size(width = 350.dp, height = 200.dp)
+                .shimmerEffect()
+        )
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(20.dp)
+                .shimmerEffect()
+        )
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(
+                modifier = modifier
+                    .fillMaxWidth(0.7f)
+                    .height(20.dp)
+                    .shimmerEffect()
+            )
+            Box(
+                modifier = modifier
+                    .fillMaxWidth(0.7f)
+                    .height(20.dp)
+                    .shimmerEffect()
+            )
         }
     }
 }

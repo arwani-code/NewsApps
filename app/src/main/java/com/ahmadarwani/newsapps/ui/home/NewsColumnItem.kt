@@ -106,3 +106,8 @@ fun SectionDate(modifier: Modifier = Modifier, publishedAt: String) {
         Text(text = date.toString(), color = Color.Gray, fontSize = 12.sp)
     }
 }
+
+@Composable
+fun NewsColumnLoading(){
+
+}
