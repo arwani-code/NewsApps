@@ -8,10 +8,7 @@ import com.ahmadarwani.newsapps.data.network.response.topheadlines.TopHeadlines
 import com.ahmadarwani.newsapps.utils.Constant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,7 +21,6 @@ sealed class UiState<out T : Any?> {
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: NewsRepository) : ViewModel() {
-
     private val _uiStateTopHeadline: MutableStateFlow<UiState<TopHeadlines>> =
         MutableStateFlow(UiState.Loading)
     val uiStateTopHeadline: StateFlow<UiState<TopHeadlines>> get() = _uiStateTopHeadline
