@@ -40,7 +40,9 @@ fun BannerTop(
             contentDescription = article.title,
             contentScale = ContentScale.Crop,
             placeholder = painterResource(id = R.drawable.ic_image_placeholder),
-            modifier = modifier.clip(RoundedCornerShape(16.dp))
+            modifier = modifier
+                .clip(RoundedCornerShape(16.dp))
+                .size(width = 350.dp, height = 200.dp)
         )
         Text(
             text = article.title,
