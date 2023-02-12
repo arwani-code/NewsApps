@@ -60,7 +60,7 @@ fun HomeScreen(
                             modifier = modifier.padding(vertical = 8.dp)
                         )
                     }
-                    items(articleEverything) { article ->
+                    items(articleEverything, key = {it.title}) { article ->
                         NewsColumnItem(article = article)
                     }
                 }
