@@ -2,6 +2,7 @@ package com.ahmadarwani.newsapps.ui.home
 
 import android.graphics.Paint.Align
 import android.text.Layout.Alignment
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ahmadarwani.newsapps.data.network.response.everything.Everything
@@ -39,6 +41,7 @@ fun HomeScreen(
     }
     val stateRefresh = rememberSwipeRefreshState(isRefreshing = isRefreshing)
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -107,7 +110,9 @@ fun HomeScreen(
                     }
                 }
             }
-            is UiState.Error -> {}
+            is UiState.Error -> {
+                Toast.makeText(context, (everything as UiState.Error).errorMessage, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
