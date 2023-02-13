@@ -1,11 +1,6 @@
 package com.ahmadarwani.newsapps.ui.home
 
-import android.graphics.Paint.Align
-import android.text.Layout.Alignment
 import android.widget.Toast
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -64,11 +59,12 @@ fun HomeScreen(
                 homeViewModel.getEverything()
             }
             is UiState.Success -> {
-                val articleEverything = (everything as UiState.Success<Everything>).data.articles
+                val articleEverything =
+                    (everything as UiState.Success<Everything>).data.articles.shuffled()
                 SwipeRefresh(state = stateRefresh, onRefresh = {
                     coroutineScope.launch {
                         isRefreshing = !isRefreshing
-                        delay(300L)
+                        delay(500L)
                         isRefreshing = !isRefreshing
                     }
                 }) {
@@ -111,7 +107,11 @@ fun HomeScreen(
                 }
             }
             is UiState.Error -> {
-                Toast.makeText(context, (everything as UiState.Error).errorMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    (everything as UiState.Error).errorMessage,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
